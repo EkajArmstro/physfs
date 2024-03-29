@@ -1878,8 +1878,11 @@ static void SzArEx_Free(CSzArEx *p, ISzAlloc *alloc)
 
 static int TestSignatureCandidate(const Byte *testBytes)
 {
+  if (testBytes[0] != k7zSignature[0] && testBytes[0] != '6') // ADDED
+    return 0; // ADDED
+
   unsigned i;
-  for (i = 0; i < k7zSignatureSize; i++)
+  for (i = 1; i < k7zSignatureSize; i++) // MODIFIED START FROM 0 TO 1
     if (testBytes[i] != k7zSignature[i])
       return 0;
   return 1;
